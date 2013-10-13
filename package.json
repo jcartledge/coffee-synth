@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "npm install -g grunt-cli"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,8 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/jcartledge/coffee-synth/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
   }
 }
