@@ -1,17 +1,18 @@
 class Synth
 
-    constructor: ->
+    constructor: (@ui = false) ->
         @context = new webkitAudioContext()
         @modules = []
 
     add_module: (module) ->
         @modules.push(module)
+        @ui.add(module) if @ui
 
     create: (type) ->
         return @context['create' + type[0].toUpperCase() + type[1..-1]]()
 
-    trigger: ->
-        module.trigger() for module in @modules
+    trigger: (f)->
+        module.trigger(f) for module in @modules
 
     speaker: ->
         @context.destination

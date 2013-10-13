@@ -14,7 +14,8 @@ class VCOModule extends Module
         @wrapped.type = type
         super
 
-    trigger: ->
+    trigger: (f) ->
+        @wrapped.frequency.value = f
         @wrapped.start(0)
 
     release: ->

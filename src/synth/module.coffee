@@ -20,7 +20,7 @@ class Module
         amp.connect(input)
         @wrapped.connect(amp)
 
-    trigger: ->
+    trigger: (f) ->
     release: ->
 
 module.exports = Module
