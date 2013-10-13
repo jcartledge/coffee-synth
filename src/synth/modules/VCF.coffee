@@ -5,8 +5,12 @@ class VCFModule extends Module
         @controls = [
             {
                 'name': 'type'
-                'type': 'list'
-                'values': ['lowpass', 'highpass']
+                'list': true
+                'values': [
+                    {'key': 'lowpass'}
+                    {'key': 'highpass'}
+                ]
+                'change': (n) => @wrapped.type = n
             }
         ]
         @wrapped = @synth.create('biquadFilter');

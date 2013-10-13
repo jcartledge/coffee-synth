@@ -6,9 +6,10 @@ class LFOModule extends VCOModule
         super(@synth, @name)
         @controls.push({
             'name': 'frequency'
-            'type': 'range'
+            'range': true
             'min': 0.1
             'max': 100.0
+            'change': (n) => @wrapped.frequency.value = n
         })
         @wrapped.frequency.value = 1.0
         @wrapped.start(0)

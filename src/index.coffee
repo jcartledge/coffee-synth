@@ -1,4 +1,5 @@
 require('jquery-browserify')( ->
+
     ui = new (require('./synthui/index.coffee'))('#synth')
     synth = new (require('./synth/index.coffee').Synth)(ui)
     modules = require('./synth/index.coffee').modules

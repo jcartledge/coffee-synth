@@ -5,9 +5,10 @@ class VCAModule extends Module
         @controls = [
             {
                 'name': 'gain'
-                'type': 'range'
+                'range': true
                 'min': 0.0
                 'max': 1.0
+                'change': (n) => @wrapped.gain.value = n
             }
         ]
         @wrapped = @synth.create('gain');

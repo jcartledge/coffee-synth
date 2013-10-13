@@ -6,8 +6,14 @@ class VCOModule extends Module
         @controls = [
             {
                 'name': 'type'
-                'type': 'list'
-                'values': ['sine', 'sawtooth', 'square', 'triangle']
+                'list': true
+                'values': [
+                    {'key': 'sine'}
+                    {'key': 'sawtooth'}
+                    {'key': 'square'}
+                    {'key': 'triangle'}
+                ]
+                'change': (n) => @wrapped.type = n
             }
         ]
         @wrapped = @synth.create('oscillator');
