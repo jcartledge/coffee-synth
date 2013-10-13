@@ -19,6 +19,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "browserify": "~2.33.1",
-    "grunt-browserify": "~1.2.8"
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-coffeeify": "~0.1.3"
   }
 }
