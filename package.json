@@ -17,6 +17,8 @@
     "url": "https://github.com/jcartledge/coffee-synth/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "browserify": "~2.33.1",
+    "grunt-browserify": "~1.2.8"
   }
 }
