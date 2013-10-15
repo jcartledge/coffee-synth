@@ -3,6 +3,7 @@ Module = require('../module.coffee')
 class VCOModule extends Module
     # VCO needs to handle creating and destroying oscillators on trigger
     constructor: (@synth, @name = 'VCO', type = 'sine') ->
+        super(@synth)
         @controls = [
             {
                 'name': 'type'
@@ -18,9 +19,8 @@ class VCOModule extends Module
         ]
         @wrapped = @synth.create('oscillator');
         @wrapped.type = type
-        super
 
-    trigger: (f) ->
+    start: (f) ->
         @wrapped.frequency.value = f
         @wrapped.start(0)
 

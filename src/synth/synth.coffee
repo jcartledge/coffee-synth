@@ -1,18 +1,19 @@
-class Synth
+Backbone = require('backbone')
+SynthModule = require('./module.coffee')
 
-    constructor: (@ui = false) ->
+class Synth extends Backbone.Collection
+
+    model: SynthModule
+
+    constructor: ->
+        super
         @context = new webkitAudioContext()
-        @modules = []
-
-    add_module: (module) ->
-        @modules.push(module)
-        @ui.add(module) if @ui
 
     create: (type) ->
         return @context['create' + type[0].toUpperCase() + type[1..-1]]()
 
-    trigger: (f)->
-        module.trigger(f) for module in @modules
+    start: (f)->
+        module.start(f) for module in @models
 
     speaker: ->
         @context.destination

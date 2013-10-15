@@ -1,12 +1,14 @@
-class Module
+Backbone = require("backbone")
+
+class Module extends Backbone.Model
     @synth
     @name
     @wrapped
     @controls = {}
 
     constructor: (@synth) ->
-        @synth.add_module(this)
-        # super
+        super
+        @synth.add(this)
 
     input: (param = 0) ->
         if param
@@ -20,7 +22,7 @@ class Module
         amp.connect(input)
         @wrapped.connect(amp)
 
-    trigger: (f) ->
+    start: (f) ->
     release: ->
 
 module.exports = Module
