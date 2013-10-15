@@ -1,12 +1,23 @@
-Backbone = require("backbone")
-views = require('./views.coffee')
+$ = require('jquery-browserify')
+controls = require('./controls.coffee')
 
-class Module extends Backbone.Model
+class Module
 
     constructor: (@synth) ->
-        super
-        @view = new views.ModuleView(@)
+        @controls = []
+        @view = new ModuleView(@)
         @synth.add_module(this)
+
+    add_range_control: (props) ->
+        control = new controls.RangeControl(props)
+        @_add_control(control)
+
+    add_select_control: (props) ->
+        @_add_control(new controls.SelectControl(props))
+
+    _add_control: (control) ->
+        @controls.push(control)
+        @render
 
     input: (param = 0) ->
         if param
@@ -21,9 +32,19 @@ class Module extends Backbone.Model
         @wrapped.connect(amp)
 
     render: ->
-        @view.render()
+        @view.render(@controls)
 
     start: (f) ->
     release: ->
+
+class ModuleView
+
+    constructor: (@module) ->
+        @el = $("<div>")
+
+    render: (controls) ->
+        console.log(@module)
+        @el.html("<h2>#{@module.name}</h2>")
+        @el.append(control.render()) for control in controls
 
 module.exports = Module

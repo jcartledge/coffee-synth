@@ -4,20 +4,18 @@ class VCOModule extends Module
     # VCO needs to handle creating and destroying oscillators on trigger
     constructor: (@synth, @name = 'VCO', type = 'sine') ->
         super(@synth)
-        @controls = [
-            {
-                'name': 'type'
-                'list': true
-                'values': [
-                    {'key': 'sine'}
-                    {'key': 'sawtooth'}
-                    {'key': 'square'}
-                    {'key': 'triangle'}
-                ]
-                'change': (n) => @wrapped.type = n
-            }
-        ]
         @wrapped = @synth.create('oscillator');
+        @add_select_control(
+            'name': 'wave'
+            'values': [
+                'sine'
+                'sawtooth'
+                'square'
+                'triangle'
+            ]
+            'set': (n) => @wrapped.type = n
+            'get': => @wrapped.type
+        )
         @wrapped.type = type
 
     start: (f) ->
