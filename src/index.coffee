@@ -1,8 +1,7 @@
 require('jquery-browserify')( ->
 
     el = $('#synth')
-    synthView = new (require('./synth/index.coffee').SynthView)(el)
-    synth = new (require('./synth/index.coffee').Synth)(synthView)
+    synth = new (require('./synth/index.coffee').Synth)(el)
     modules = require('./synth/index.coffee').modules
 
     vco = new modules.VCO(synth, 'VCO', 'square')
@@ -19,5 +18,5 @@ require('jquery-browserify')( ->
     vca.connect(synth.speaker())
 
     synth.start(220)
-    console.log(synth)
+
 )

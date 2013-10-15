@@ -1,14 +1,12 @@
 Backbone = require("backbone")
+views = require('./views.coffee')
 
 class Module extends Backbone.Model
-    @synth
-    @name
-    @wrapped
-    @controls = {}
 
     constructor: (@synth) ->
         super
-        @synth.add(this)
+        @view = new views.ModuleView(@)
+        @synth.add_module(this)
 
     input: (param = 0) ->
         if param
@@ -21,6 +19,9 @@ class Module extends Backbone.Model
         amp.gain.value = gain
         amp.connect(input)
         @wrapped.connect(amp)
+
+    render: ->
+        @view.render()
 
     start: (f) ->
     release: ->
