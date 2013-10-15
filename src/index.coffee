@@ -1,6 +1,8 @@
 require('jquery-browserify')( ->
 
-    synth = new (require('./synth/index.coffee').Synth)
+    el = $('#synth')
+    synthView = new (require('./synth/index.coffee').SynthView)(el)
+    synth = new (require('./synth/index.coffee').Synth)(synthView)
     modules = require('./synth/index.coffee').modules
 
     vco = new modules.VCO(synth, 'VCO', 'square')
