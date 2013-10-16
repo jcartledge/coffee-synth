@@ -28,7 +28,7 @@ class SynthView
     constructor: (@el) ->
 
     render: (modules) ->
-        @el.html('')
+        @el.html('<div class="synth">')
         @el.append(module.render()) for module in modules
 
 module.exports = Synth

@@ -5,6 +5,7 @@ class VCOModule extends Module
     constructor: (@synth, @name = 'VCO', type = 'sine') ->
         super(@synth)
         @wrapped = @synth.create('oscillator');
+        @wrapped.type = type
         @add_select_control(
             'name': 'wave'
             'values': [
@@ -16,7 +17,6 @@ class VCOModule extends Module
             'set': (n) => @wrapped.type = n
             'get': => @wrapped.type
         )
-        @wrapped.type = type
 
     start: (f) ->
         @wrapped.frequency.value = f

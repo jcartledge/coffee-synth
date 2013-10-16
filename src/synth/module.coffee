@@ -40,10 +40,10 @@ class Module
 class ModuleView
 
     constructor: (@module) ->
-        @el = $("<div>")
+        @el = $("<div class='synth-module synth-module-#{@module.name}'>")
 
     render: (controls) ->
-        console.log(@module)
+
         @el.html("<h2>#{@module.name}</h2>")
         @el.append(control.render()) for control in controls
 
