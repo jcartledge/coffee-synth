@@ -33,7 +33,7 @@ class Module
         if options
             amp.gain.value = options.value
             target.add_range_control(
-                'name': "#{@name} gain"
+                'name': "#{@name} amount"
                 'min': options.min
                 'max': options.max
                 'set': (n) => amp.gain.value = n

@@ -2,16 +2,14 @@ Module = require('../module.coffee')
 
 class VCAModule extends Module
     constructor: (@synth, @name = 'VCA') ->
-        @controls = [
-            {
-                'name': 'gain'
-                'range': true
-                'min': 0.0
-                'max': 1.0
-                'change': (n) => @wrapped.gain.value = n
-            }
-        ]
-        @wrapped = @synth.create('gain');
         super
+        @wrapped = @synth.create('gain');
+        @add_range_control(
+            'name': 'gain'
+            'min': 0
+            'max': 1
+            'set': (n) => @wrapped.gain.value = n
+            'get': => @wrapped.gain.value
+        )
 
 module.exports = VCAModule
