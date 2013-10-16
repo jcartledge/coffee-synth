@@ -1,10 +1,21 @@
 Module = require('../module.coffee')
-DCOModule = require('./DCO.coffee')
 
-class LFOModule extends DCOModule
+class LFOModule extends Module
     constructor: (@synth, @name = 'LFO') ->
-        super(@synth, @name)
+        super(@synth)
+        @wrapped = @synth.create('oscillator');
         @wrapped.frequency.value = 1.0
+        @add_select_control(
+            'name': 'wave'
+            'values': [
+                'sine'
+                'sawtooth'
+                'square'
+                'triangle'
+            ]
+            'set': (n) => @wrapped.type = n
+            'get': => @wrapped.type
+        )
         @add_range_control(
             'name': 'rate'
             'min': 0.1
@@ -13,8 +24,5 @@ class LFOModule extends DCOModule
             'get': => @wrapped.frequency.value
         )
         @wrapped.start(0)
-
-    trigger: (f) -> # so we don't catch DCO trigger
-    release: (f) -> # and release
 
 module.exports = LFOModule
