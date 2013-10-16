@@ -8,7 +8,7 @@ class LFOModule extends VCOModule
         @add_range_control(
             'name': 'rate'
             'min': 0.1
-            'max': 100
+            'max': 20
             'set': (n) => @wrapped.frequency.value = n
             'get': => @wrapped.frequency.value
         )
