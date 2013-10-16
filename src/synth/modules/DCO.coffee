@@ -2,10 +2,9 @@ Module = require('../module.coffee')
 
 class DCOModule extends Module
     # DCO needs to handle creating and destroying oscillators on trigger
-    constructor: (@synth, @name = 'DCO', type = 'sine') ->
+    constructor: (@synth, @name = 'DCO') ->
         super(@synth)
         @wrapped = @synth.create('oscillator');
-        @wrapped.type = type
         @add_select_control(
             'name': 'wave'
             'values': [

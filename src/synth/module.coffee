@@ -19,7 +19,7 @@ class Module
         @controls.push(control)
         @render
 
-    input: (param = 0) ->
+    input: (param) ->
         if param
             @wrapped[param]
         else

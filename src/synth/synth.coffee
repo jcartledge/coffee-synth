@@ -1,5 +1,3 @@
-SynthModule = require('./module.coffee')
-
 class Synth
 
     constructor: (el) ->
