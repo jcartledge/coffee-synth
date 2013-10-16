@@ -1,7 +1,7 @@
 Module = require('../module.coffee')
 
-class VCAModule extends Module
-    constructor: (@synth, @name = 'VCA') ->
+class DCAModule extends Module
+    constructor: (@synth, @name = 'DCA') ->
         super
         @wrapped = @synth.create('gain');
         @add_range_control(
@@ -12,4 +12,4 @@ class VCAModule extends Module
             'get': => @wrapped.gain.value
         )
 
-module.exports = VCAModule
+module.exports = DCAModule

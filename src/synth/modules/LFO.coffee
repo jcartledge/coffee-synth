@@ -1,7 +1,7 @@
 Module = require('../module.coffee')
-VCOModule = require('./VCO.coffee')
+DCOModule = require('./DCO.coffee')
 
-class LFOModule extends VCOModule
+class LFOModule extends DCOModule
     constructor: (@synth, @name = 'LFO') ->
         super(@synth, @name)
         @wrapped.frequency.value = 1.0
@@ -14,6 +14,7 @@ class LFOModule extends VCOModule
         )
         @wrapped.start(0)
 
-    start: (f) -> # so we don't catch VCO trigger
+    trigger: (f) -> # so we don't catch DCO trigger
+    release: (f) -> # and release
 
 module.exports = LFOModule

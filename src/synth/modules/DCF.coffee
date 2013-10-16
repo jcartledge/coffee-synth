@@ -1,7 +1,7 @@
 Module = require('../module.coffee')
 
-class VCFModule extends Module
-    constructor: (@synth, @name = 'VCF') ->
+class DCFModule extends Module
+    constructor: (@synth, @name = 'DCF') ->
         super
         @wrapped = @synth.create('biquadFilter');
         @add_select_control(
@@ -28,4 +28,4 @@ class VCFModule extends Module
             'get': => @wrapped.Q.value
         )
 
-module.exports = VCFModule
+module.exports = DCFModule

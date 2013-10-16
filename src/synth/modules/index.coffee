@@ -1,6 +1,6 @@
 module.exports =
     LFO: require('./LFO.coffee')
-    VCA: require('./VCA.coffee')
-    VCF: require('./VCF.coffee')
-    VCO: require('./VCO.coffee')
+    DCA: require('./DCA.coffee')
+    DCF: require('./DCF.coffee')
+    DCO: require('./DCO.coffee')
     Speaker: require('./speaker.coffee')

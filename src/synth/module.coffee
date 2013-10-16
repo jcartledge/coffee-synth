@@ -44,7 +44,7 @@ class Module
     render: ->
         @view.render(@controls)
 
-    start: (f) ->
+    trigger: (f) ->
     release: ->
 
 class ModuleView

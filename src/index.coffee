@@ -3,31 +3,33 @@ require('jquery-browserify')( ->
     synth = new (require('./synth/index.coffee').Synth)($('#synth'))
     modules = require('./synth/index.coffee').modules
 
-    vco = new modules.VCO(synth, 'VCO', 'square')
+    dco = new modules.DCO(synth, 'DCO', 'square')
     lfo = new modules.LFO(synth)
-    vcf = new modules.VCF(synth)
-    vca = new modules.VCA(synth)
+    dcf = new modules.DCF(synth)
+    dca = new modules.DCA(synth)
 
-    lfo.connect(vco, 'frequency',
+    lfo.connect(dco, 'frequency',
         'value': 20
         'min': 0
         'max': 200
     )
-    lfo.connect(vcf, 'frequency',
+    lfo.connect(dcf, 'frequency',
         'value': 100
         'min': 0
         'max': 200
     )
-    lfo.connect(vca, 'gain',
+    lfo.connect(dca, 'gain',
         'value': .5
         'min': 0
         'max': 1
     )
-    vco.connect(vcf)
-    vcf.connect(vca)
+    dco.connect(dcf)
+    dcf.connect(dca)
 
-    vca.connect(new modules.Speaker(synth))
+    dca.connect(new modules.Speaker(synth))
 
-    synth.start(220)
+
+    $('body').on('keydown', -> synth.trigger(220))
+    $('body').on('keyup', -> synth.release(220))
 
 )
