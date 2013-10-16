@@ -44,6 +44,7 @@ class RangeControlView extends ControlView
         super
         slider = @bind_to_control($("""<input
             type="range"
+            step="0.01"
             min="#{@control.min}"
             max="#{@control.max}"
             value="#{@control.get()}"

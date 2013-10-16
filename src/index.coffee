@@ -8,9 +8,21 @@ require('jquery-browserify')( ->
     vcf = new modules.VCF(synth)
     vca = new modules.VCA(synth)
 
-    lfo.connect(vco, 'frequency', 20)
-    lfo.connect(vcf, 'frequency', 100)
-    lfo.connect(vca, 'gain', .5)
+    lfo.connect(vco, 'frequency',
+        'value': 20
+        'min': 0
+        'max': 200
+    )
+    lfo.connect(vcf, 'frequency',
+        'value': 100
+        'min': 0
+        'max': 200
+    )
+    lfo.connect(vca, 'gain',
+        'value': .5
+        'min': 0
+        'max': 1
+    )
     vco.connect(vcf)
     vcf.connect(vca)
 

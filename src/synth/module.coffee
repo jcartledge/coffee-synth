@@ -25,11 +25,20 @@ class Module
         else
             @wrapped
 
-    connect: (target, input, gain = 1) ->
+    connect: (target, input = null, options = null) ->
         input = target.input(input)
         amp = @synth.create('gain')
-        amp.gain.value = gain
+        amp.gain.value = 1
         amp.connect(input)
+        if options
+            amp.gain.value = options.value
+            target.add_range_control(
+                'name': "#{@name} gain"
+                'min': options.min
+                'max': options.max
+                'set': (n) => amp.gain.value = n
+                'get': => amp.gain  .value
+            )
         @wrapped.connect(amp)
 
     render: ->
