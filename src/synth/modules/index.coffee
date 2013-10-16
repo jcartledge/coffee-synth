@@ -3,3 +3,4 @@ module.exports =
     VCA: require('./VCA.coffee')
     VCF: require('./VCF.coffee')
     VCO: require('./VCO.coffee')
+    Speaker: require('./speaker.coffee')

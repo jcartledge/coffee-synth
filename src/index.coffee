@@ -8,13 +8,13 @@ require('jquery-browserify')( ->
     vcf = new modules.VCF(synth)
     vca = new modules.VCA(synth)
 
-    lfo.connect(vco.input('frequency'), 20)
-    lfo.connect(vcf.input('frequency'), 100)
-    lfo.connect(vca.input('gain'), .5)
-    vco.connect(vcf.input())
-    vcf.connect(vca.input())
+    lfo.connect(vco, 'frequency', 20)
+    lfo.connect(vcf, 'frequency', 100)
+    lfo.connect(vca, 'gain', .5)
+    vco.connect(vcf)
+    vcf.connect(vca)
 
-    vca.connect(synth.speaker())
+    vca.connect(new modules.Speaker(synth))
 
     synth.start(220)
 

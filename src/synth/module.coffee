@@ -25,7 +25,8 @@ class Module
         else
             @wrapped
 
-    connect: (input, gain = 1) ->
+    connect: (target, input, gain = 1) ->
+        input = target.input(input)
         amp = @synth.create('gain')
         amp.gain.value = gain
         amp.connect(input)
