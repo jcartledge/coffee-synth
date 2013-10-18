@@ -18,6 +18,22 @@ class Synth
     speaker: ->
         @context.destination
 
+    connect: (src, target, input, options) ->
+        amp = @create('gain')
+        amp.gain.value = 1
+        target.incoming(amp, input)
+        src.outgoing(amp)
+        # add a gain control to target if options supplied
+        if options
+            amp.gain.value = options.value
+            target.add_range_control(
+                'name': "#{@name} amount"
+                'min': options.min
+                'max': options.max
+                'set': (n) => amp.gain.value = n
+                'get': => amp.gain  .value
+            )
+
 class SynthView
 
     constructor: (@el) ->
