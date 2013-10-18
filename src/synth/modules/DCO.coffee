@@ -17,7 +17,7 @@ class DCOModule extends Module
                 'square'
                 'triangle'
             ]
-            'set': (n) => @wrapped.type = n
+            'set': (n) => @set('type', n)
             'get': => @wrapped.type
         )
 
@@ -28,6 +28,10 @@ class DCOModule extends Module
     # internal - called by synth.connect
     outgoing: (target) ->
         @wrapped.outgoing.push(target)
+
+    set: (param, val) ->
+        @wrapped[param] = val
+        voice[param] = val for _, voice of @voices
 
     trigger: (f) ->
         return if @voices[f]
@@ -41,7 +45,8 @@ class DCOModule extends Module
         @voices[f] = voice
 
     release: (f) ->
-        @voices[f].stop(0)
-        delete @voices[f]
+        if @voices[f]
+            @voices[f].stop(0)
+            delete @voices[f]
 
 module.exports = DCOModule
