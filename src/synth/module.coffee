@@ -19,11 +19,11 @@ class Module
         @controls.push(control)
         @render
 
-    input: (param) ->
+    input: (param, target = @wrapped) ->
         if param
-            @wrapped[param]
+            target[param]
         else
-            @wrapped
+            target
 
     # shorthand for synth.connect(src, target)
     connect: (target, input, options) ->

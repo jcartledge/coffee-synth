@@ -1,10 +1,14 @@
 Module = require('../module.coffee')
 
 class DCOModule extends Module
-    # DCO needs to handle creating and destroying oscillators on trigger
+
     constructor: (@synth, @name = 'DCO') ->
         super(@synth)
-        @wrapped = @synth.create('oscillator');
+        @voices = {}
+        @wrapped =
+            'type': 'sine'
+            'incoming': []
+            'outgoing': []
         @add_select_control(
             'name': 'wave'
             'values': [
@@ -17,11 +21,27 @@ class DCOModule extends Module
             'get': => @wrapped.type
         )
 
+    # internal - called by synth.connect
+    incoming: (src, param) ->
+        @wrapped.incoming.push([src, param])
+
+    # internal - called by synth.connect
+    outgoing: (target) ->
+        @wrapped.outgoing.push(target)
+
     trigger: (f) ->
-        @wrapped.frequency.value = f
-        @wrapped.start(0)
+        return if @voices[f]
+        voice = @synth.create('oscillator')
+        src.connect(@input(param, voice)) for [src, param] in @wrapped.incoming
+        voice.connect(target) for target in @wrapped.outgoing
+        voice.type = @wrapped.type
+        voice.frequency.value = f
+        voice.start(0)
+        console.log(voice)
+        @voices[f] = voice
 
     release: (f) ->
-        @wrapped.stop(0)
+        @voices[f].stop(0)
+        delete @voices[f]
 
 module.exports = DCOModule
