@@ -15,12 +15,6 @@ class Synth
     render: ->
         @view.render(@modules)
 
-    trigger: (f) ->
-        module.trigger(f) for module in @modules
-
-    release: (f) ->
-        module.release(f) for module in @modules
-
     speaker: ->
         @context.destination
 
