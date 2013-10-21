@@ -20,18 +20,22 @@ class Keyboard
 
         @keys = {}
         @key_names = 'CC#DD#EFF#GG#AA#B'.match(/[A-Z]#?/g)
-        key_num = 0
+        i = 0
 
-        for octave in [start_octave..octaves + start_octave - 1]
+        end_octave = octaves + (start_octave - 1)
+        for octave in [start_octave..end_octave]
             for key_name in @key_names
-                key_num++
+                i++
+                key_num = (start_octave * 12) + i
 
                 if key_name.match(/#/)
-                    key = @draw_black_key(key_num)
+                    key = @draw_black_key(i)
                 else
-                    key = @draw_white_key(key_num)
+                    key = @draw_white_key(i)
 
-                key.data('keyName', key_name + octave)
+                key.data('key_name', key_name + octave)
+                    .data('key_num', key_num)
+                    .data('f', @f(key_num))
                     .mousedown(@key_on(key))
                     .mouseup(@key_off(key))
                     .mouseover(@key_over(key))
@@ -52,16 +56,19 @@ class Keyboard
             .attr('fill', @b_fill)
             .attr('stroke', '#999')
 
+    f: (key_num) ->
+        440 * Math.pow(2, ((key_num - 58)/12))
+
     key_on: (key) ->
-        -> console.log('on', key)
+        -> console.log('on', key.data('f'))
 
     key_off: (key) ->
-        -> console.log('off', key)
+        -> console.log('off', key.data('f'))
 
     key_over: (key) ->
-        => console.log('on', key) if @mousedown
+        => console.log('on', key.data('f')) if @mousedown
 
     key_out: (key) ->
-        => console.log('off', key) if @mousedown
+        => console.log('off', key.data('f')) if @mousedown
 
 module.exports = Keyboard
