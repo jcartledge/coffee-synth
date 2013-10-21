@@ -41,7 +41,6 @@ class DCOModule extends Module
         voice.type = @wrapped.type
         voice.frequency.value = f
         voice.start(0)
-        console.log(voice)
         @voices[f] = voice
 
     release: (f) ->

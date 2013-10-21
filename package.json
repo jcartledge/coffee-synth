@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "jquery": "~1.8.3",
-    "jquery-browserify": "~1.8.1"
+    "jquery-browserify": "~1.8.1",
+    "raphael-browserify": "~2.1.0"
   }
 }

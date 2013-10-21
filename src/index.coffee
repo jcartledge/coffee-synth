@@ -3,6 +3,10 @@ require('jquery-browserify')( ->
     synth = new (require('./synth/index.coffee').Synth)($('#synth'))
     modules = require('./synth/index.coffee').modules
 
+    paper = new (require('raphael-browserify'))('keyboard', 1000, 200)
+    keyboard = new (require('./synth/keyboard.coffee'))(paper, 4, 1)
+    console.log(keyboard)
+
     dco = new modules.DCO(synth)
     lfo = new modules.LFO(synth)
     dcf = new modules.DCF(synth)
