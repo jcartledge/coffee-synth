@@ -29,7 +29,6 @@ require('jquery-browserify')( ->
 
     dca.connect(new modules.Speaker(synth))
 
-    $('body').on('keydown', (e) -> dco.trigger(220))
-    $('body').on('keyup', (e) -> dco.release(220))
+    keyboard.connect(dco)
 
 )

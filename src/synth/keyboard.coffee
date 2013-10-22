@@ -1,15 +1,9 @@
-$ = require('jquery-browserify')
-
 class Keyboard
 
     mousedown: 0
+    subscribers: []
 
     constructor: (@paper, @octaves = 2, @start_octave = 2) ->
-        $('body').on('mousedown', =>
-            @mousedown = true
-        ).on('mouseup', =>
-            @mousedown = false
-        )
         @draw()
 
     draw: ->
@@ -27,10 +21,16 @@ class Keyboard
                     .toBack();
 
             key.data('f', 440 * Math.pow(2, ((key_num - 58)/12)))
-                .mousedown(@key_on(key))
-                .mouseup(@key_off(key))
-                .mouseover( => @key_on(key)() if @mousedown)
-                .mouseout( => @key_off(key)() if @mousedown)
+                .mousedown( =>
+                    @mousedown = true
+                    @key_on(key)
+                )
+                .mouseup( =>
+                    @mousedown = false
+                    @key_off(key)
+                )
+                .mouseover( => @key_on(key) if @mousedown)
+                .mouseout( => @key_off(key) if @mousedown)
             x
 
         keys = []
@@ -40,9 +40,12 @@ class Keyboard
         keys.reduce(draw_key, -w)
 
     key_on: (key) ->
-        -> console.log('on', key.data('f'))
+        subscriber.trigger(key.data('f')) for subscriber in @subscribers
 
     key_off: (key) ->
-        -> console.log('off', key.data('f'))
+        subscriber.release(key.data('f')) for subscriber in @subscribers
+
+    connect: (subscriber) ->
+        @subscribers.push(subscriber)
 
 module.exports = Keyboard
