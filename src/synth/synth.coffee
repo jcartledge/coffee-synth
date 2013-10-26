@@ -27,7 +27,7 @@ class Synth
         if options
             amp.gain.value = options.value
             target.add_range_control(
-                'name': "#{src.name} amount"
+                'name': "#{src.name} &#x21dd; #{input}"
                 'min': options.min
                 'max': options.max
                 'set': (n) => amp.gain.value = n
