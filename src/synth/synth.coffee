@@ -21,7 +21,7 @@ class Synth
 
     connect: (src, target, input, options) ->
         amp = @create('gain')
-        amp.gain.value = 1
+        amp.gain.value = 1.0
         target.incoming(amp, input)
         src.outgoing(amp)
         # add a gain control to target if options supplied
@@ -40,8 +40,8 @@ class Synth
             size = 1024
             _dc = @context.createBufferSource()
             _dc.buffer = @context.createBuffer(1, size, @context.sampleRate)
-            dcData = _dc.buffer.getChannelData(0)
-            dcData[i] = level for i in [1..size - 1]
+            _dc_data = _dc.buffer.getChannelData(0)
+            _dc_data[i] = level for i in [0...size]
             _dc.loop = true
             _dc.start(0)
             @_dc[level] = _dc

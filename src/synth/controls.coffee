@@ -22,8 +22,9 @@ class SelectControl extends SynthControl
 
 class ControlView
     constructor: (@control) ->
+        display_name = @control.name.replace('_', '')
         @el = $("<div class='synth-control synth-control-#{@control.name}'>")
-        @el.append("<h3>#{@control.name}</h3>")
+        @el.append("<h3>#{display_name}</h3>")
 
     render: ->
         @el

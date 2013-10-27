@@ -3,10 +3,29 @@ controls = require('./controls.coffee')
 
 class Module
 
+    subscribers: []
+
     constructor: (@synth) ->
         @controls = []
         @view = new ModuleView(@)
         @synth.add_module(this)
+
+    add_param_list_control: (param_name, values) ->
+        @add_select_control(
+            'name': param_name
+            'values': values
+            'set': (n) => @wrapped[param_name] = n
+            'get': => @wrapped[param_name]
+        )
+
+    add_param_range_control: (param_name, min, max) ->
+        @add_range_control(
+            'name': param_name
+            'min': min
+            'max': max
+            'set': (n) => @wrapped[param_name].value = n
+            'get': => @wrapped[param_name].value
+        )
 
     add_range_control: (props) ->
         control = new controls.RangeControl(props)
@@ -29,6 +48,9 @@ class Module
     connect: (target, input, options) ->
         @synth.connect(@, target, input, options)
 
+    connect_trigger: (subscriber) ->
+        @subscribers.push(subscriber)
+
     # internal - called by synth.connect
     incoming: (src, param) ->
         src.connect(@input(param))
@@ -41,7 +63,10 @@ class Module
         @view.render(@controls)
 
     trigger: (f) ->
-    release: ->
+        subscriber.trigger(f) for subscriber in @subscribers
+
+    release: (f) ->
+        subscriber.release(f) for subscriber in @subscribers
 
 class ModuleView
 

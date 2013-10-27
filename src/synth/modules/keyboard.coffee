@@ -1,4 +1,6 @@
-class Keyboard
+Module = require('../module.coffee')
+
+class KeyboardModule extends Module
 
     mousedown: 0
     subscribers: []
@@ -7,7 +9,7 @@ class Keyboard
         @draw()
 
     draw: ->
-        @paper.clear();
+        @paper.clear()
         w = (@paper.width / @octaves) / 7
         h = @paper.height
 
@@ -21,7 +23,7 @@ class Keyboard
                 key = @paper.rect(x += w, 0, w, h, 3)
                     .attr('fill', '#EEE').attr('stroke', '#999')
                     .data('alt-fill', '#DDD')
-                    .toBack();
+                    .toBack()
 
             key.data('f', 440 * Math.pow(2, ((key_num - 58)/12)))
                 .mousedown( =>
@@ -55,7 +57,7 @@ class Keyboard
         key.data('alt-fill', key.attr('fill'))
         key.attr('fill', alt_fill)
 
-    connect: (subscriber) ->
+    connect_trigger: (subscriber) ->
         @subscribers.push(subscriber)
 
-module.exports = Keyboard
+module.exports = KeyboardModule

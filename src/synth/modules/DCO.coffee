@@ -2,24 +2,16 @@ Module = require('../module.coffee')
 
 class DCOModule extends Module
 
+    voices: {}
+    wrapped:
+        'type': 'sine'
+        'incoming': []
+        'outgoing': []
+
     constructor: (@synth, @name = 'DCO') ->
         super(@synth)
-        @voices = {}
-        @wrapped =
-            'type': 'sine'
-            'incoming': []
-            'outgoing': []
-        @add_select_control(
-            'name': 'wave'
-            'values': [
-                'sine'
-                'sawtooth'
-                'square'
-                'triangle'
-            ]
-            'set': (n) => @set('type', n)
-            'get': => @wrapped.type
-        )
+        types = ['sine', 'sawtooth', 'square', 'triangle']
+        @add_param_list_control('type', types)
 
     # internal - called by synth.connect
     incoming: (src, param) ->

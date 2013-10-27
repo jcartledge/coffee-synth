@@ -3,7 +3,7 @@ Module = require('../module.coffee')
 class LFOModule extends Module
     constructor: (@synth, @name = 'LFO') ->
         super(@synth)
-        @wrapped = @synth.create('oscillator');
+        @wrapped = @synth.create('oscillator')
         @wrapped.frequency.value = 1.0
         @add_select_control(
             'name': 'wave'
